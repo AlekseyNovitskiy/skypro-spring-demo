@@ -2,10 +2,7 @@ package pro.sky.skyprospringdemo.Kollekcii;
 
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class PersonServiceImpl implements PersonService {
@@ -53,6 +50,33 @@ public class PersonServiceImpl implements PersonService {
             "столяр",
             "Актер"
     );
+
+    Map<String, Integer> professionsCodes = Map.of(
+            "Безработный", 0,
+            "Водитель", 1,
+            "Плотник", 2,
+            "Столяр", 3,
+            "Актер", 4);
+
+    public List<Person> getPersonsByProfession(Integer professionNumber) {
+        List<Person> result = new ArrayList<>();
+        for (Person person : persons.values()) {
+            if (person.getProfessionNumbers().contains(professionNumber)) {
+                result.add(person);
+            }
+        }
+        return result;
+    }
+    @Override
+    public List<Person> getPersonsByProfessions(List<Integer> professionNumbers) {
+        List<Person> result = new ArrayList<>();
+        for (Person person : persons.values()) {
+            if (person.getProfessionNumbers().containsAll(professionNumbers)) {
+                result.add(person);
+            }
+        }
+        return result;
+    }
 
     /*@Override
     public String getPerson(Integer number) { // принимает индекс в массиве
