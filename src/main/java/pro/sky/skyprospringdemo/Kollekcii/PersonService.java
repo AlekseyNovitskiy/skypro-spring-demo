@@ -7,6 +7,8 @@ import java.util.List;
 public interface PersonService {
     // String getPerson(Integer number);  // принимает индекс в массиве
 
+    List<Person> getPersonsByProfession(Integer professionNumber);
+
     List<Person> getPersonsByProfessions(List<Integer> professionNumbers);
 
     /*@Override

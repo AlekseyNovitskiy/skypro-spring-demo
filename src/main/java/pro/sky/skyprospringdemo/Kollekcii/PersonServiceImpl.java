@@ -57,7 +57,7 @@ public class PersonServiceImpl implements PersonService {
             "Плотник", 2,
             "Столяр", 3,
             "Актер", 4);
-
+    @Override
     public List<Person> getPersonsByProfession(Integer professionNumber) {
         List<Person> result = new ArrayList<>();
         for (Person person : persons.values()) {

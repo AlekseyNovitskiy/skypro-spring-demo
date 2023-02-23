@@ -4,7 +4,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 public class PersonController {
@@ -54,9 +57,19 @@ public class PersonController {
         personService.addPerson(person);
             return "Person added";
     }
-
-    public void getByProfessions() {
-        personService.getPersonsByProfessions(List.of(1, 3));
+    @GetMapping(path="/persons/by-profession")
+    public String getByProfession(@RequestParam("profession") int profession) {
+        List<Person> personsByProfession = personService.getPersonsByProfession(profession);
+        //List<String> passports = new ArrayList<>();
+        /*for (int i = 0; i < personsByProfession.size(); i++) {
+            Person person = personsByProfession.get(i);
+            passports.add(person.getPassport());
+        }*/
+        List<String> streamPassports = personsByProfession.stream()
+                .map(e->e.getPassport())
+                .map(passport->"~"+passport+"~")
+                .collect(Collectors.toList());
+        return streamPassports.toString();
 
     }
 
